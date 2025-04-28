@@ -1,0 +1,51 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+body{
+    padding:10px;
+    background-color: #3c3e8a;
+    color: white;
+}
+
+@media screen and (min-width:300px) and (max-width:500px) {
+
+
+
+
+    #App-title{
+        text-align: center;
+        margin: 5px 0 5px 0 ;
+    }
+    
+    
+    .form-container{
+        display:flex ;
+        flex-direction: column;
+        align-items:center;
+        justify-content:center ;
+        margin:20px 0 10px 0 ;
+    }
+
+    input[type='text']{
+        height: 30px;
+    }
+
+
+    #weather-form-submit-button{
+        background-color: #f8215d;
+        color:white;
+        font-weight: bold;
+        border:none;
+        border-radius: 5px;
+        height: 40px;
+        width: 80px;
+    }
+
+
+    
+}
+
