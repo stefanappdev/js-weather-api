@@ -1,0 +1,179 @@
+
+<%- include('../partials/header.ejs') %>
+
+<main id="main-app">
+    
+    
+    
+    <h1 id="App-title"><%- title %></h1>
+
+    <div class="form-container" >
+        <form id="Weather-form">
+            <label for="city-name">Enter your city:</label>
+            
+            <input type="text" id="city-name" name="city-name" placeholder="search for a city"/>
+            <input type="submit" name="submit-button" id="weather-form-submit-button" value="Submit" />
+
+        </form>
+
+        <br/>
+
+    </div>
+       
+ 
+ 
+ 
+ 
+    <div id="weather-cards-div">
+
+
+
+
+    </div>
+
+
+
+
+   
+
+        <script>
+                // html elements
+                let Form=document.querySelector('#Weather-form');
+                let weathercards=document.querySelector('#weather-cards-div');
+                let singleweathercard=document.createElement('div');
+                let cardlocationheader=document.createElement('h2');
+                let cardimage=document.createElement('img');
+
+
+
+                //object to store info about single card
+                let singlecardinfo={
+                    city:'',
+                    country:'',
+                    forecast:'',
+                    temperature:'',
+                }
+
+
+            
+                
+                
+                
+                Form.addEventListener('submit',(event)=>{
+                    event.preventDefault();
+                    //console.log("city-name is:",event.target['city-name'].value)
+                    //submits city and returns weather for city submitted
+
+                  
+
+                    
+                    //checks if user enters a city
+                    
+                    if(event.target['city-name'].value===''){
+                            alert('please enter a city');
+                            return
+                    }
+
+
+                    let city=event.target['city-name'].value;
+                    let key='<%- key %>'
+                    let url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
+
+                  try{ fetch(url)
+                    .then(response=>response.json())
+                    .then(data=>{
+                        //set card details from api data
+
+                        //set location
+                        singlecardinfo.city=data.name;
+                        singlecardinfo.country=data.sys.country;
+                        singlecardinfo.forecast=data.weather[0].description;
+                        singlecardinfo.temperature=data.main.temp;
+
+
+                        //add new card data to local storage
+                        
+                        let cardsData=[];
+                        
+                        cardsData.push(singlecardinfo);
+                        
+                        //check if the local storage exists before pushing first card
+                        if(!localStorage.getItem('weathercards')){
+                         
+                            localStorage.setItem('weathercards',JSON.stringify(cardsData));
+
+                        }else{
+                          
+                            //otherwise update local storage with new cards
+
+                                let currentWeatherCards=JSON.parse(localStorage.getItem('weathercards'));
+                                
+
+
+
+                      
+                            if(currentWeatherCards){
+
+
+                                //check if a card with same country and city exist in localstorage if so do not add
+                                //to cardsData
+                                if (currentWeatherCards.find(card=>card.city===singlecardinfo.city&&card.country===singlecardinfo.country)){
+                                    alert('card already exists')
+                                    return
+                                }
+
+
+
+                                //otherwise update cards in local storage
+                                cardsData=[...currentWeatherCards,singlecardinfo];
+                                localStorage.setItem('weathercards',JSON.stringify(cardsData))
+
+                            
+                             }
+                                
+
+                            }
+                        
+                        
+                    })
+                      
+                    
+                  
+
+                   }catch(error){
+                    console.error("an error occured:",error)
+                   }
+
+                   //retreive weather card info
+                   const weathercardsArray=JSON.parse(localStorage.getItem('weathercards'));
+                   if(weathercardsArray){
+                    console.log('my local weathercards ',weathercardsArray);
+                   }
+                
+                   //set weathercard info
+                   weathercards.classList.add('singleweathercard');
+                   singleweathercard.appendChild(cardlocationheader);
+                    
+                   
+                   weathercards.appendChild(singleweathercard)
+
+
+                   //clears city name
+                   event.target['city-name'].value='';
+                
+
+                })
+
+
+
+            </script>
+
+
+
+
+
+  
+
+    
+
+    <%- include('../partials/footer.ejs') %>
