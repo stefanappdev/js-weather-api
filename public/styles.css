@@ -86,11 +86,11 @@ body{
     }
 
 
-    .singleweathercard{
+    .weathercard{
         height: 200px;
         width:200px;
-        font-size: large;
-        background-color:white;
+        background-color:rgb(170, 163, 226);
+        border-radius: 5px;
         color:black;
     }
 

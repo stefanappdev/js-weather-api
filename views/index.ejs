@@ -44,12 +44,16 @@
                 // html elements
                 let Form=document.querySelector('#Weather-form');
                 let resetbtn=document.querySelector('#weather-form-reset-button');
-                
+                let weathercardscontainer=document.querySelector('#weather-cards-div');
 
             
 
                 //object to store info about new card
+
+                let ID=1;
+
                 let newcard={
+                    id:ID,
                     city:'',
                     country:'',
                     forecast:'',
@@ -60,7 +64,9 @@
                ///reset button event listener
                resetbtn.addEventListener('click',function(event){
                     localStorage.clear();
-                    alert('all data reset')
+                    alert('all data reset');
+                    weathercardscontainer.innerHTML='';
+
 
                })
                 
@@ -97,13 +103,14 @@
                                         newcard.country=data.sys.country;
                                         newcard.forecast=data.weather[0].description;
                                         newcard.temperature=data.main.temp;
+                                        
 
                                         
 
                                         //function to add new weather card to local storage and then display 
                                         const addnewCard=(cardobj)=>{
 
-                                            
+                                             
                                             const addNewCardDataToLocalStorage=(cardobj)=>{
 
                                                  //add new card data to local storage if it exists, create new local storage
@@ -112,8 +119,8 @@
                                                 if(JSON.parse(localStorage.getItem('weathercards'))===null){
                                                     
                                                     localStorage.setItem('weathercards',JSON.stringify([cardobj]));
-                                                
-                                            
+                                                   
+                                                    
                                                         }
 
 
@@ -130,12 +137,16 @@
                                                         alert('card already in local storage')
                                                         return
                                                     }
-                                                    
 
+
+                                                   //update id before adding new card
+                                                    cardobj.id+=1;
                                                     localStorage.setItem('weathercards',JSON.stringify([...currentWeatherCards,cardobj]));
                                                     
-
                                                 }
+
+
+                                                
 
                                             }
 
@@ -146,13 +157,46 @@
                                             const addNewCardToDisplaySection=(cardobj)=>{
 
                                                 let currentLocalStorage=JSON.parse(localStorage.getItem('weathercards'));
-                                                let weathercardscontainer=document.querySelector('#weather-cards-div');
+                                                
                                                 let newweathercard=document.createElement('div');
                                                 let cardlocationheader=document.createElement('h2');
+                                                let cardimgcontainer=document.createElement('div');
+                                                let cardforecast=document.createElement('span');
+                                                let cardtemp=document.createElement('span');
                                                 let cardimage=document.createElement('img');
 
                                                 let target=currentLocalStorage.find(card=>card.city===cardobj.city&&card.country===cardobj.country)
-                                                    
+                                                
+                                                if (target){
+
+                                                    //js to add info to new card
+
+                                                    cardlocationheader.textContent=`${target.city},${target.country}`;
+                                                    cardimage.setAttribute('alt','forecast image of card ');
+                                                    cardforecast.textContent=`${target.forecast}`;
+                                                    cardtemp.textContent=`Temperature:${target.temperature}`;
+                                                   
+                                                   
+                                                    //js to add new card to display section
+
+                                                    //selectors for card components
+                                                    newweathercard.classList.add('weathercard');
+                                                    cardimage.classList.add('cardimage');
+                                                    cardimgcontainer.classList.add('cardimgcontainer')
+                                                    cardtemp.classList.add('cardtemp');
+                                                    cardforecast.classList.add('cardforecast');
+                                                    cardlocationheader.classList.add('cardlocationheader')
+
+
+
+                                                    cardimgcontainer.appendChild(cardimage);
+                                                    newweathercard.appendChild(cardlocationheader);
+                                                    newweathercard.appendChild(cardimgcontainer);
+                                                    newweathercard.appendChild(cardforecast);
+                                                    newweathercard.appendChild(cardtemp);
+                                                    weathercardscontainer.appendChild(newweathercard)
+
+                                                }
                                                    
 
 
@@ -169,15 +213,6 @@
 
                                         }
 
-
-
-
-                                       
-
-
-
-
-                                        
 
 
 
