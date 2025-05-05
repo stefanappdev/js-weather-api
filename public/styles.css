@@ -46,17 +46,37 @@ body{
     }
 
 
-    #weather-form-submit-button{
-        background-color: #f8215d;
+    .weather-form-btns-container{
+        display:inline-flex;
+        
+    }
+    
+   .weather-form-button{
         color:white;
         font-weight: bold;
+        text-align: center;
         border:none;
         border-radius: 5px;
         height: 40px;
         width: 80px;
         cursor: pointer;
-        margin:0 auto 0 auto;
+        margin:5px;
     }
+
+
+    #weather-form-submit-button{
+        background-color: #f8215d;
+        
+    }
+
+
+    
+    #weather-form-reset-button{
+        background-color: #f00f22;
+        
+    }
+
+
 
     #weather-cards-div{
         height: 100%;
