@@ -78,7 +78,9 @@
                             //console.log("city-name is:",event.target['city-name'].value)
                             //submits city and returns weather for city submitted
 
-                        
+
+
+                    ////random change here
 
                             
                             //checks if user enters a city
