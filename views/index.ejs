@@ -15,7 +15,7 @@
 
             <div class="weather-form-btns-container">
                 <input type="submit" name="submit-button" class="weather-form-button" id="weather-form-submit-button" value="Submit" />
-                <input type="button" name="reest-button" class="weather-form-button" id="weather-form-reset-button"  value="reset" />
+                <input type="button" name="reset-button" class="weather-form-button" id="weather-form-reset-button"  value="reset" />
             </div>
            
         </form>
@@ -50,10 +50,10 @@
 
                 //object to store info about new card
 
-                let ID=1;
+                
 
                 let newcard={
-                    id:ID,
+                    id:'',
                     city:'',
                     country:'',
                     forecast:'',
@@ -64,8 +64,12 @@
                ///reset button event listener
                resetbtn.addEventListener('click',function(event){
                     localStorage.clear();
-                    alert('all data reset');
                     weathercardscontainer.innerHTML='';
+                    setTimeout(()=>{
+                        alert('all data reset');
+                    },100)
+                    
+                  
 
 
                })
@@ -101,6 +105,7 @@
                                         //set info for new card
                                         newcard.city=data.name;
                                         newcard.country=data.sys.country;
+                                        newcard.id=`${newcard.city},${newcard.country}`;
                                         newcard.forecast=data.weather[0].description;
                                         newcard.temperature=data.main.temp;
                                         
@@ -119,9 +124,9 @@
                                                 if(JSON.parse(localStorage.getItem('weathercards'))===null){
                                                     
                                                     localStorage.setItem('weathercards',JSON.stringify([cardobj]));
-                                                   
+                                                
                                                     
-                                                        }
+                                                    }
 
 
                                                 //update local storage if it exists with new card
@@ -131,18 +136,20 @@
                                                     let currentWeatherCards=JSON.parse(localStorage.getItem('weathercards'));
 
                                                     //dont re-add card info exists already in local storage 
-                                                    let target=currentWeatherCards.find(card=>card.city===cardobj.city&&card.country===cardobj.country)
+                                                    let target=currentWeatherCards.find(card=>card.id===cardobj.id)
                                                     
                                                     if(target){
-                                                        alert('card already in local storage')
-                                                        return
+                                                         //update id before adding new card
+                                                         return
+                                                    }else{
+                                                       localStorage.setItem('weathercards',JSON.stringify([...currentWeatherCards,cardobj]));
                                                     }
 
 
-                                                   //update id before adding new card
-                                                    cardobj.id+=1;
-                                                    localStorage.setItem('weathercards',JSON.stringify([...currentWeatherCards,cardobj]));
+                                                 
                                                     
+                                                   
+                                                      
                                                 }
 
 
@@ -165,7 +172,7 @@
                                                 let cardtemp=document.createElement('span');
                                                 let cardimage=document.createElement('img');
 
-                                                let target=currentLocalStorage.find(card=>card.city===cardobj.city&&card.country===cardobj.country)
+                                                let target=currentLocalStorage.find(card=>card.id==cardobj.id)
                                                 
                                                 if (target){
 
@@ -229,6 +236,14 @@
                     
                     //clear city input field
                     event.target['city-name'].value='';
+
+
+
+                 ///if user refreshes window reset local storage
+                    window.onbeforeunload = function(event) {
+                        localStorage.clear();
+                        
+                        };
             });
 
 
