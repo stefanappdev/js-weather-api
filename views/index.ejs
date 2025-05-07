@@ -97,34 +97,96 @@
                             let key='<%- key %>'
                             let url=`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
 
+
                         fetch(url)
                                     .then(response=>response.json())
                                     .then(data=>{
                                         //set  new card details from api data
+
+                                        console.log("data:",data)
 
                                         //set info for new card
                                         newcard.city=data.name;
                                         newcard.country=data.sys.country;
                                         newcard.id=`${newcard.city},${newcard.country}`;
                                         newcard.forecast=data.weather[0].description;
-                                        newcard.temperature=data.main.temp;
-                                        
+                                        newcard.img_url=`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` ;
+                                        newcard.temperature=Math.round(data.main.temp - 273.15 );
+                                    
 
                                         
 
                                         //function to add new weather card to local storage and then display 
                                         const addnewCard=(cardobj)=>{
 
+
+
+
+
+                                             //create a function to update container of weathercards with new card(to be completed)
+                                             const addNewCardToDisplaySection=(cardobj)=>{
+
+                                                    let currentLocalStorage=JSON.parse(localStorage.getItem('weathercards'));
+
+                                                    let newweathercard=document.createElement('div');
+                                                    let cardlocationheader=document.createElement('h2');
+                                                    let cardimgcontainer=document.createElement('div');
+                                                    let cardforecast=document.createElement('span');
+                                                    let cardtemp=document.createElement('span');
+                                                    let br=document.createElement('br');
+                                                    let cardimage=document.createElement('img');
+
+                                                    let target=currentLocalStorage.find(card=>card.id==cardobj.id)
+
+                                                    if (target){
+
+                                                        //js to add info to new card
+
+                                                        cardlocationheader.textContent=`${target.city},${target.country}`;
+                                                        cardforecast.textContent=`${target.forecast}`;
+                                                        cardimage.setAttribute('alt',target.forecast);
+                                                        cardimage.setAttribute('src',target.img_url);
+                                                        
+                                                        cardtemp.textContent=`${target.temperature} C`;
+                                                    
+                                                    
+                                                        //js to add new card to display section
+
+                                                        //selectors for card components
+                                                        newweathercard.classList.add('weathercard');
+                                                        cardimage.classList.add('cardimage');
+                                                        cardimgcontainer.classList.add('cardimgcontainer')
+                                                        cardtemp.classList.add('cardtemp');
+                                                        cardforecast.classList.add('cardforecast');
+                                                        cardlocationheader.classList.add('cardlocationheader')
+
+
+
+                                                        cardimgcontainer.appendChild(cardimage);
+                                                        newweathercard.appendChild(cardlocationheader);
+                                                        newweathercard.appendChild(cardimgcontainer);
+                                                        newweathercard.appendChild(cardforecast);
+                                                        newweathercard.appendChild(br);
+                                                        newweathercard.appendChild(cardtemp);
+                                                        weathercardscontainer.appendChild(newweathercard)
+
+                                                    }
+                                                    
+
+
+                                                    }
+
+
                                              
                                             const addNewCardDataToLocalStorage=(cardobj)=>{
 
-                                                 //add new card data to local storage if it exists, create new local storage
-                                                //then add card if it doesnt
+                                                 /*add new card data to local storage if it exists, create new 
+                                                 local storage then add card if it doesnt and display the card*/
                                             
                                                 if(JSON.parse(localStorage.getItem('weathercards'))===null){
                                                     
                                                     localStorage.setItem('weathercards',JSON.stringify([cardobj]));
-                                                
+                                                    addNewCardToDisplaySection(cardobj);
                                                     
                                                     }
 
@@ -139,93 +201,22 @@
                                                     let target=currentWeatherCards.find(card=>card.id===cardobj.id)
                                                     
                                                     if(target){
-                                                         //update id before adding new card
+                                                        alert('card data already exists')
                                                          return
+
                                                     }else{
-                                                       localStorage.setItem('weathercards',JSON.stringify([...currentWeatherCards,cardobj]));
-                                                    }
-
-
-                                                 
-                                                    
-                                                   
-                                                      
+                                                        //add card info exists already in local storage 
+                                                       //then add to display section
+                                                        localStorage.setItem('weathercards',JSON.stringify([...currentWeatherCards,cardobj]));
+                                                       addNewCardToDisplaySection(cardobj);
+                                                    }    
                                                 }
 
-
-                                                
-
                                             }
-
-
-
-
-                                            //create a function to update container of weathercards with new card(to be completed)
-                                            const addNewCardToDisplaySection=(cardobj)=>{
-
-                                                let currentLocalStorage=JSON.parse(localStorage.getItem('weathercards'));
-                                                
-                                                let newweathercard=document.createElement('div');
-                                                let cardlocationheader=document.createElement('h2');
-                                                let cardimgcontainer=document.createElement('div');
-                                                let cardforecast=document.createElement('span');
-                                                let cardtemp=document.createElement('span');
-                                                let cardimage=document.createElement('img');
-
-                                                let target=currentLocalStorage.find(card=>card.id==cardobj.id)
-                                                
-                                                if (target){
-
-                                                    //js to add info to new card
-
-                                                    cardlocationheader.textContent=`${target.city},${target.country}`;
-                                                    cardimage.setAttribute('alt','forecast image of card ');
-                                                    cardforecast.textContent=`${target.forecast}`;
-                                                    cardtemp.textContent=`Temperature:${target.temperature}`;
-                                                   
-                                                   
-                                                    //js to add new card to display section
-
-                                                    //selectors for card components
-                                                    newweathercard.classList.add('weathercard');
-                                                    cardimage.classList.add('cardimage');
-                                                    cardimgcontainer.classList.add('cardimgcontainer')
-                                                    cardtemp.classList.add('cardtemp');
-                                                    cardforecast.classList.add('cardforecast');
-                                                    cardlocationheader.classList.add('cardlocationheader')
-
-
-
-                                                    cardimgcontainer.appendChild(cardimage);
-                                                    newweathercard.appendChild(cardlocationheader);
-                                                    newweathercard.appendChild(cardimgcontainer);
-                                                    newweathercard.appendChild(cardforecast);
-                                                    newweathercard.appendChild(cardtemp);
-                                                    weathercardscontainer.appendChild(newweathercard)
-
-                                                }
-                                                   
-
-
-                                            }
-
-
-
 
                                             addNewCardDataToLocalStorage(cardobj);
-                                            addNewCardToDisplaySection(cardobj);
-
-
-
-
+                                            
                                         }
-
-
-
-
-
-
-
 
 
                         addnewCard(newcard)

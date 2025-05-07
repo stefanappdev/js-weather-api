@@ -91,15 +91,24 @@ body{
 
     .weathercard{
         height:185px;
-        width:100px;
+        width:150px;
         background-color:rgb(170, 163, 226);
         border-radius: 5px;
+        text-align: center;
+        padding:10px;
         font-size: 12px;
         color:black;
         margin:5px 2px 5px 2px;
     }
 
 
+    .cardforecast{
+        margin:5px;
+    }
+
+    .cardtemp{
+        margin:5px;
+    }
     
 }
 
