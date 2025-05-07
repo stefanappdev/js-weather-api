@@ -9,9 +9,13 @@
 
     <div class="form-container" >
         <form id="Weather-form">
-            <label for="city-name">Enter your city:</label>
-            
-            <input type="text" id="city-name" name="city-name" placeholder="search for a city"/>
+
+            <div id="Weather-form-input-container">
+                <label for="city-name">Enter your city:</label>
+                <input type="text" id="city-name" name="city-name" placeholder="search for a city"/>
+            </div>
+
+
 
             <div class="weather-form-btns-container">
                 <input type="submit" name="submit-button" class="weather-form-button" id="weather-form-submit-button" value="Submit" />
@@ -20,14 +24,17 @@
            
         </form>
 
-        <br/>
+    
 
-    </div>
-       
+    </div> 
  
- 
- 
- 
+    <br/>
+
+
+
+
+
+
     <div id="weather-cards-div">
 
 
@@ -41,6 +48,11 @@
    
 
         <script>
+
+            window.addEventListener('load',(event)=>{
+                localStorage.clear();
+            })
+
                 // html elements
                 let Form=document.querySelector('#Weather-form');
                 let resetbtn=document.querySelector('#weather-form-reset-button');
@@ -104,6 +116,12 @@
                                         //set  new card details from api data
 
                                         console.log("data:",data)
+
+
+                                        if(data.cod==='404'){
+                                            alert('the city entered was not found,please try again');
+                                            return
+                                        }
 
                                         //set info for new card
                                         newcard.city=data.name;
