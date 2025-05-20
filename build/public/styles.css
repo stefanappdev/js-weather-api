@@ -1,0 +1,342 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+body{
+    padding: 20px;
+    background-color:rgb(38, 51, 196);
+    color: white;
+    display:flex ;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center ;
+    
+    
+}
+
+
+/*mobile phone screens*/
+@media screen and (min-width:300px) and (max-width:450px) {
+
+
+
+
+    #App-title{
+        text-align: center;
+        margin: 10px 0 10px 0 ;
+    }
+    
+    
+    .form-container{
+        display:flex ;
+        flex-direction: column;
+        align-items:center;
+        justify-content:center ;
+        margin:10px auto 10px auto ;
+        width: 300px;
+        padding: 0 20px 0 20px;
+    }
+
+   
+
+    input[type='text']{
+        height: 30px;
+        margin: 10px 0 10px 0;
+      
+        
+    }
+
+
+    input[type='text']:focus{
+        height: 30px;
+        background-color: #9fb1df;
+    }
+
+
+  
+
+
+    #Weather-form-input-container{
+        margin:20px;
+    }
+
+
+    .weather-form-btns-container{
+        display: inline-flex;
+        width: 100%;
+        margin: 0 15px 0 15px ;
+    }
+    
+   .weather-form-button{
+        color:white;
+        font-weight: bold;
+        text-align: center;
+        border:none;
+        border-radius: 5px;
+        height: 40px;
+        width: 80px;
+        cursor: pointer;
+        margin:  0 5px 0 5px;
+        
+    }
+
+
+    #weather-form-submit-button{
+        background-color: #f8215d;
+        
+    }
+
+
+    
+    #weather-form-reset-button{
+        background-color: #f00f22;
+        
+    }
+
+
+
+    #weather-cards-div{
+        width:100%;
+        display:flex;
+        flex-wrap: wrap;
+
+        
+    }
+
+
+    .weathercard{
+        height:185px;
+        width:120px;
+        background-color:rgb(170, 163, 226);
+        border-radius: 5px;
+        font-size: 12px;
+        color:black;
+        font-style: italic;
+        padding: 5px;
+        text-align: center;
+        margin:5px;
+        box-shadow: 2px 2px 2px 3px rgb(15, 15, 15) ;
+    }
+
+
+    .cardforecast{
+        margin:5px;
+        font-style: italic;
+    }
+
+    .cardtemp{
+        margin:5px;
+        font-style: italic;
+    }
+
+
+    footer{
+        text-align: center;
+        
+    }
+    
+}
+
+
+
+/*tablets screens*/
+@media screen and (min-width:451px) and (max-width:600px) {
+
+
+
+
+    #App-title{
+        text-align: center;
+        margin: 5px 0 5px 0 ;
+    }
+    
+    
+    .form-container{
+        display:flex ;
+        flex-direction: column;
+        align-items:center;
+        justify-content:center ;
+        margin:20px 0 10px 0 ;
+        padding: 20px;
+    }
+
+
+
+    input[type='text']{
+        height: 30px;
+        margin:10px 0 10px 0;
+        
+    }
+
+
+    input[type='text']:focus{
+        height: 30px;
+        background-color: #9fb1df;
+    }
+
+
+    .weather-form-btns-container{
+        display:flex;
+        justify-content:center;
+        align-items: center;
+        margin:0 auto ;
+        
+    }
+    
+   .weather-form-button{
+        color:white;
+        font-weight: bold;
+        text-align: center;
+        border:none;
+        border-radius: 5px;
+        height: 40px;
+        width: 80px;
+        cursor: pointer;
+        margin:5px;
+    }
+
+
+    #weather-form-submit-button{
+        background-color: #f8215d;
+        
+    }
+
+
+    
+    #weather-form-reset-button{
+        background-color: #f00f22;
+        
+    }
+
+
+
+    #weather-cards-div{
+        width:100%;
+        display:flex;
+        flex-wrap: wrap;
+
+        
+    }
+
+
+    .weathercard{
+        height:185px;
+        width:120px;
+        background-color:rgb(170, 163, 226);
+        border-radius: 5px;
+        font-size: 12px;
+        color:black;
+        font-style: italic;
+        padding: 5px;
+        text-align: center;
+        margin:5px;
+        box-shadow: 2px 2px 2px 3px rgb(15, 15, 15) ;
+    }
+
+
+    
+}
+
+
+
+/*desktop*/
+
+@media screen and (min-width:601px) and (max-width:1440px) {
+
+
+
+
+    #App-title{
+        text-align: center;
+        margin: 5px 0 5px 0 ;
+    }
+    
+    
+    .form-container{
+        display:flex ;
+        flex-direction: column;
+        align-items:center;
+        justify-content:center ;
+        margin:20px 0 10px 0 ;
+        padding: 20px;
+    }
+
+
+
+    input[type='text']{
+        height: 30px;
+        margin:10px 0 10px 0;
+        
+    }
+
+
+    input[type='text']:focus{
+        height: 30px;
+        background-color: #9fb1df;
+    }
+
+
+    .weather-form-btns-container{
+        display:flex;
+        justify-content:center;
+        align-items: center;
+        margin:0 auto ;
+        
+    }
+    
+   .weather-form-button{
+        color:white;
+        font-weight: bold;
+        text-align: center;
+        border:none;
+        border-radius: 5px;
+        height: 40px;
+        width: 80px;
+        cursor: pointer;
+        margin:5px;
+    }
+
+
+    #weather-form-submit-button{
+        background-color: #f8215d;
+        
+    }
+
+
+    
+    #weather-form-reset-button{
+        background-color: #f00f22;
+        
+    }
+
+
+
+    #weather-cards-div{
+        width:100%;
+        display:flex;
+        flex-wrap: wrap;
+
+        
+    }
+
+
+    .weathercard{
+        height:185px;
+        width:120px;
+        background-color:rgb(170, 163, 226);
+        border-radius: 5px;
+        font-size: 12px;
+        color:black;
+        font-style: italic;
+        padding: 5px;
+        text-align: center;
+        margin:5px;
+        box-shadow: 2px 2px 2px 3px rgb(15, 15, 15) ;
+    }
+
+
+    
+}
